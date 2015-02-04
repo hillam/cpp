@@ -19,6 +19,28 @@ double Rectangle::contains(const Rectangle& other) const{
 			(other.m_x + other.m_w) < (m_x + m_w) &&
 			(other.m_y + other.m_h) < (m_y + m_h));
 }
+
+Rectangle Rectangle::container(const Rectangle& other) const{
+	int  ch,x,y,w,h;
+	if(m_x < other.m_x)
+		x = m_x;
+	else
+		x = other.m_x;
+	if(m_y < other.m_y)
+		y = m_y;
+	else
+		y = other.m_y;
+	
+	if((m_x + m_w) > (other.m_x + other.m_w))
+		w = (m_x + m_w) - x;
+	else
+		w = (other.m_x + other.m_w) - x;
+	if((m_y + m_h) > (other.m_y + other.m_h))
+		h = (m_y + m_h) - y;
+	else
+		h = (other.m_y + other.m_h) - y;
+}
+
 ostream& operator<<(ostream& os, const Rectangle& r){
 	for(int i(0);i<r.m_y;i++)
 		os << endl;

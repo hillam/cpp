@@ -10,6 +10,7 @@ public:
 	int area() const;
 	int perimeter() const;
 	double contains(const Rectangle& other) const;
+	Rectangle container(const Rectangle& other) const;
 	friend std::ostream& operator<<(std::ostream& os, const Rectangle& r);
 
 private:
