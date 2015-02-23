@@ -11,10 +11,9 @@ int main(){
 	string lower("abcdefghijklmnopqrstuvwxyz");
 
 	while(!file.endOfFile()){
-		int index;// = upper.find(file.readLine()[0]);
-		//if(index == string::npos)
-			index = lower.find(file.readLine()[0]);
-		if(index > 0)
+		int index;
+		index = lower.find(file.readLine()[0]);
+		if(index >= 0)
 			count[index] ++;
 	}
 
@@ -26,7 +25,8 @@ int main(){
 			cout << "Kbye.." << endl;
 			return 0;
 		}
-		cout << "There are " << count[upper.find(inpt[0])] << 
-			" words that begin with " << inpt[0] << "." << endl;
+		else if(upper.find(inpt[0]) != string::npos)
+			cout << "There are " << count[upper.find(inpt[0])] << 
+				" words in the file that begin with " << inpt[0] << "." << endl;
 	}
 }
