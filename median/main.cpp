@@ -9,7 +9,7 @@ int main(){
 	const string prefix ("Pesky");
 	const int num_photos = 9;
 
-	image pics[num_photos];
+	static image pics[num_photos];
 
 	cout << "Reading images.." << endl;
 	//read file
