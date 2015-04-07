@@ -1,4 +1,4 @@
-#include "SimWindow.h"
+#include "SimApp.h"
 #include <gtk/gtk.h>
 #include <iostream>
 
@@ -6,6 +6,6 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {	
-	SimWindow window(argc, argv, "Hello World", 500, 600);
+	SimApp(argc, argv, "Particle Simulator", 500, 600);
 }
 

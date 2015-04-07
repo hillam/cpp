@@ -1,12 +1,12 @@
 #include "ParticlePlayground.h"
 #include <cairomm/context.h>
+#include <iostream>
 
 using namespace std;
 
 ParticlePlayground::ParticlePlayground()
   : m_particles()
-{
-}
+{ }
 
 ParticlePlayground::~ParticlePlayground()
 {
@@ -33,13 +33,14 @@ bool ParticlePlayground::on_draw(const Cairo::RefPtr<Cairo::Context>& cr)
     for (vector<ParticleBase*>::const_iterator it = m_particles.begin(); 
         it!=m_particles.end(); it++) 
     {
-        (*it)->draw(win_width, win_height, cr);
+        (*it)->draw(win_height, win_width, cr);
     }
 
     cr->restore();
 
     return true;
 }
+
 
 void ParticlePlayground::tick(long t)
 {
