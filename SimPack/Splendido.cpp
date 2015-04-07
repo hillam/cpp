@@ -7,10 +7,17 @@ using namespace std;
 void Splendido::draw(int win_height, int win_width, 
   const Cairo::RefPtr<Cairo::Context>& cr)
 {
+    win_width = win_width * SimApp::getMetersPerPixel();
+    win_height =  win_height * SimApp::getMetersPerPixel();
+
     if(getX() > win_width)
         setX(0);
+    else if(getX() < 0)
+        setX(win_width);
     if(getY() > win_height)
         setY(0);
+    else if(getY() < 0)
+        setY(win_height);
     
     double xpix = getX() / SimApp::getMetersPerPixel();
     double ypix = getY() / SimApp::getMetersPerPixel();

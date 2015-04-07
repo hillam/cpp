@@ -39,7 +39,7 @@ SimApp::SimApp(int argc, char *argv[], string title, int w, int h)
 	// units for x,y,w,h are in meters...
 	for(int i(0);i<100;i++)
 		m_playground.add(new Splendido(rand()%500, rand()%600, 10, 10, 
-			rand()%20 + 1, rand()%20 + 1));
+			rand()%40 - 20, rand()%40 - 20));
 
    	m_playground.show();
  	
