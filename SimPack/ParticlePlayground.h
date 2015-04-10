@@ -15,13 +15,12 @@ public:
   	virtual ~ParticlePlayground();
   	void add(ParticleBase* p);
   	virtual void tick(long t);
+  	vector<ParticleBase*>* getParticles(){return &m_particles;}
 
 protected:
-
 	virtual bool on_draw(const Cairo::RefPtr<Cairo::Context>& cr);
 
 private:
-
 	vector<ParticleBase*> m_particles;
 };
 

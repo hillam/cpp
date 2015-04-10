@@ -2,14 +2,17 @@
 #define SPLENDIDO_H
 
 #include "ParticleBase.h"
+#include "ParticlePlayground.h"
 #include <gtkmm/drawingarea.h>
 
 class Splendido : public ParticleBase
 {
 public:
-    Splendido(double x, double y, double w, double h, 
+    Splendido(vector<ParticleBase*>* p, double x, double y, double w, double h, 
         double vX, double vY)
-          : ParticleBase(x, y, w, h), m_vX(vX), m_vY(vY) { };
+          : ParticleBase(x, y, w, h), m_vX(vX), m_vY(vY) {
+    	m_particles = p;
+    };
     virtual void draw(int win_height, int win_width, 
   		const Cairo::RefPtr<Cairo::Context>& cr);
     virtual ~Splendido() {};
@@ -23,6 +26,13 @@ public:
 private:
 	double m_vX;
 	double m_vY;
+	vector<ParticleBase*>* m_particles;
+
+	ParticleBase* m_closest;
+	void avoid();
+	ParticleBase* closest();
+	double distance(ParticleBase* pb);
+	void reverse();
 };
 
 #endif
