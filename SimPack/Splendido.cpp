@@ -36,7 +36,12 @@ void Splendido::draw(int win_height, int win_width,
 
     cr->set_line_width(1.0);
 
-    cr->set_source_rgba(0.8, 0.0, 0.0, 0.6);
+    if(rogue)
+    	cr->set_source_rgba(0.0, 0.8, 0.0, 0.6);
+    else if(happy)
+    	cr->set_source_rgba(0.8, 0.0, 0.0, 0.6);
+    else 
+    	cr->set_source_rgba(0.0, 0.0, 0.8, 0.6);
 
     cr->arc(xpix, ypix, wpix / 2.0, 0.0, 2.0 * M_PI);
 
@@ -48,7 +53,8 @@ void Splendido::draw(int win_height, int win_width,
 
 void Splendido::tick(long t)
 {
-	Splendido::avoid();
+	if(!rogue)
+		happy = avoid();
 
 	double deltaX = ((getVX() / SimApp::getMetersPerPixel()) * SimApp::getSecPerTick());
 	double deltaY = ((getVY() / SimApp::getMetersPerPixel()) * SimApp::getSecPerTick());
@@ -57,16 +63,28 @@ void Splendido::tick(long t)
 	setY(getY() + deltaY);
 }
 
-void Splendido::avoid(){
-	ParticleBase* close = Splendido::closest();
-	if(close != m_closest && Splendido::distance(close) < 50){
-		m_closest = close;
-		Splendido::reverse();
-	}
+/*
+	LOGIC:  If my next step isn't going to take me further away from the closest
+			Particle within 50 meters of myself turn around.
+*/
+bool Splendido::avoid(){
+	Splendido* close = closest();
+	int x1pix = getX();
+	int y1pix = getY();
+	int x2pix = close->getX();
+	int y2pix = close->getY();
+
+	double dis = Splendido::distance(close);
+	if(taxicab(x1pix,y1pix,x2pix,y2pix) > taxicab(x1pix+m_vX,y1pix+m_vY,x2pix,y2pix)
+			&& dis * SimApp::getMetersPerPixel() < 50)
+		reverse();
+
+	//convert dis from pix to meters and compare to 50 meters
+	return dis * SimApp::getMetersPerPixel() > 50;
 }
 
-ParticleBase* Splendido::closest(){
-	ParticleBase* close = m_particles[0][0];
+Splendido* Splendido::closest(){
+	Splendido* close = m_particles[0][0];
 	int dis = INT_MAX;
 	for(int i(0);i<m_particles->size();i++){
 		int x1pix = getX() / SimApp::getMetersPerPixel();
@@ -81,7 +99,7 @@ ParticleBase* Splendido::closest(){
 	return close;
 }
 
-double Splendido::distance(ParticleBase* s){
+double Splendido::distance(Splendido* s){
 	int x1pix = getX() / SimApp::getMetersPerPixel();
 	int y1pix = getY() / SimApp::getMetersPerPixel();
 	int x2pix = s->getX() / SimApp::getMetersPerPixel();
@@ -90,6 +108,7 @@ double Splendido::distance(ParticleBase* s){
 }
 
 void Splendido::reverse(){
+	//printf("reverse\n");
 	setVX(m_vX * -1);
 	setVY(m_vY * -1);
 }

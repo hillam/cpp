@@ -11,6 +11,9 @@ using namespace std;
 long t = 0;
 SimApp * win = NULL;
 
+const int TOTAL_PARTICLES = 100;
+const int NUM_ROGUES = 3;
+
 int handleTime(void *)
 {
 	t++;
@@ -37,9 +40,12 @@ SimApp::SimApp(int argc, char *argv[], string title, int w, int h)
 	m_window.add(m_playground);
 
 	// units for x,y,w,h are in meters...
-	for(int i(0);i<100;i++)
-		m_playground.add(new Splendido(m_playground.getParticles(),rand()%500, rand()%600, 10, 10, 
-			rand()%40 - 20, rand()%40 - 20));
+	for(int i(0);i<TOTAL_PARTICLES;i++)
+		m_playground.add(new Splendido(m_playground.getParticles(),rand()%501, rand()%601, 10, 10, 
+			rand()%41 - 20, rand()%41 - 20));
+
+	for(int i(0);i<NUM_ROGUES;i++)
+		((Splendido*)m_playground.getParticles()[0][i])->toggleRogue();
 
    	m_playground.show();
  	

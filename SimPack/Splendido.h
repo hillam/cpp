@@ -11,7 +11,8 @@ public:
     Splendido(vector<ParticleBase*>* p, double x, double y, double w, double h, 
         double vX, double vY)
           : ParticleBase(x, y, w, h), m_vX(vX), m_vY(vY) {
-    	m_particles = p;
+    	m_particles = (vector<Splendido*>*) p;
+      rogue = false;
     };
     virtual void draw(int win_height, int win_width, 
   		const Cairo::RefPtr<Cairo::Context>& cr);
@@ -20,18 +21,21 @@ public:
 
    	double getVX() { return m_vX; }
    	double getVY() { return m_vY; }
+    void toggleRogue() { rogue = !rogue; }
    	void setVX(double vx) { m_vX = vx; }
    	void setVY(double vy) { m_vY = vy; }
 
 private:
 	double m_vX;
 	double m_vY;
-	vector<ParticleBase*>* m_particles;
+  bool happy;
+  bool rogue;
+	vector<Splendido*>* m_particles;
 
-	ParticleBase* m_closest;
-	void avoid();
-	ParticleBase* closest();
-	double distance(ParticleBase* pb);
+	bool avoid();
+	Splendido* closest();
+	double distance(Splendido* pb);
+  int dotProduct(Splendido* pb);
 	void reverse();
 };
 
