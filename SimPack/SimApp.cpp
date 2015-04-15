@@ -12,7 +12,7 @@ long t = 0;
 SimApp * win = NULL;
 
 const int TOTAL_PARTICLES = 100;
-const int NUM_ROGUES = 3;
+const int NUM_ROGUES = 1;
 
 int handleTime(void *)
 {
@@ -29,8 +29,7 @@ SimApp::SimApp(int argc, char *argv[], string title, int w, int h)
 {
 	srand(time(NULL));
 
-  	m_app = Gtk::Application::create(argc, argv,
-      "SimPack");
+  	m_app = Gtk::Application::create(argc, argv, "SimPack");
 
  	m_window.set_default_size(w, h);
  	m_window.set_title(title.c_str());
@@ -45,7 +44,7 @@ SimApp::SimApp(int argc, char *argv[], string title, int w, int h)
 			rand()%41 - 20, rand()%41 - 20));
 
 	for(int i(0);i<NUM_ROGUES;i++)
-		((Splendido*)m_playground.getParticles()[0][i])->toggleRogue();
+		((Splendido*)m_playground.getParticles()[i])->toggleRogue();
 
    	m_playground.show();
  	

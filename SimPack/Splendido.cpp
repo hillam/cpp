@@ -75,7 +75,12 @@ bool Splendido::avoid(){
 	int y2pix = close->getY();
 
 	double dis = Splendido::distance(close);
-	if(taxicab(x1pix,y1pix,x2pix,y2pix) > taxicab(x1pix+m_vX,y1pix+m_vY,x2pix,y2pix)
+
+	// Extra:	If a rogue collides with me, I 'go rogue'. //
+	/*if(dis * SimApp::getMetersPerPixel() < getW() * SimApp::getMetersPerPixel() 
+			&& close->isRogue())
+		toggleRogue();
+	else*/ if(taxicab(x1pix,y1pix,x2pix,y2pix) > taxicab(x1pix+m_vX,y1pix+m_vY,x2pix,y2pix)
 			&& dis * SimApp::getMetersPerPixel() < 50)
 		reverse();
 
@@ -84,16 +89,16 @@ bool Splendido::avoid(){
 }
 
 Splendido* Splendido::closest(){
-	Splendido* close = m_particles[0][0];
+	Splendido* close = m_particles[0];
 	int dis = INT_MAX;
-	for(int i(0);i<m_particles->size();i++){
+	for(int i(0);i<m_particles.size();i++){
 		int x1pix = getX() / SimApp::getMetersPerPixel();
 		int y1pix = getY() / SimApp::getMetersPerPixel();
-		int x2pix = m_particles[0][i]->getX() / SimApp::getMetersPerPixel();
-		int y2pix = m_particles[0][i]->getY() / SimApp::getMetersPerPixel();
-		if(taxicab(x1pix,y1pix,x2pix,y2pix) < dis && m_particles[0][i] != this){
+		int x2pix = m_particles[i]->getX() / SimApp::getMetersPerPixel();
+		int y2pix = m_particles[i]->getY() / SimApp::getMetersPerPixel();
+		if(taxicab(x1pix,y1pix,x2pix,y2pix) < dis && m_particles[i] != this){
 			dis = taxicab(x1pix,y1pix,x2pix,y2pix);
-			close = m_particles[0][i];
+			close = m_particles[i];
 		}
 	}
 	return close;
