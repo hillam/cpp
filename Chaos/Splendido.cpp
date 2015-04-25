@@ -3,6 +3,7 @@
 #include "SimApp.h"
 #include <iostream>
 #include <climits>
+#include <stdio.h>
 #include <math.h>
 
 using namespace std;
@@ -54,6 +55,9 @@ void Splendido::tick(long t)
 {
 	collide();
 
+	if(rand()%10 == 0)
+		accelerate();
+
 	double deltaX = ((getVX() / SimApp::getMetersPerPixel()) * SimApp::getSecPerTick());
 	double deltaY = ((getVY() / SimApp::getMetersPerPixel()) * SimApp::getSecPerTick());
 
@@ -96,4 +100,23 @@ double Splendido::distance(Splendido* s){
 	int x2pix = s->getX() / SimApp::getMetersPerPixel();
 	int y2pix = s->getY() / SimApp::getMetersPerPixel();
 	return sqrt((pow(x1pix-x2pix,2))+(pow(y1pix-y2pix,2)));
+}
+
+void Splendido::accelerate(){
+	double mag = magnitude();
+
+	double one_meter(1 * SimApp::getMetersPerPixel());
+
+	printf("%f\n",mag);
+
+	setVX(((mag + one_meter) * cos(m_angle)) * SimApp::getMetersPerPixel());
+	setVY(((mag + one_meter) * sin(m_angle)) * SimApp::getMetersPerPixel());
+
+	printf("%f\n",magnitude());
+}
+
+double Splendido::magnitude(){
+	int vx = getVX() / SimApp::getMetersPerPixel();
+	int vy = getVY() / SimApp::getMetersPerPixel();
+	return sqrt((pow(vx,2))+(pow(vy,2)));
 }
