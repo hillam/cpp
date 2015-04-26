@@ -16,7 +16,7 @@ class Splendido : public ParticleBase
 public:
 	Splendido(vector<ParticleBase*>& p, double x, double y, double w, double h, 
 			double vX, double vY)
-			: ParticleBase(x, y, w, h), m_vX(vX), m_vY(vY), m_angle(atan(vY/vX)),
+			: ParticleBase(x, y, w, h), m_vX(vX), m_vY(vY), m_angle(atan(m_vY/m_vX)),
 			m_particles((vector<Splendido*>&) p), dead(false) {
 		//coin toss to decide type
 		if(rand() % 2 == 0)

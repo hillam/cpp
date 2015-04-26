@@ -69,7 +69,7 @@ void Splendido::collide(){
 	Splendido* close = closest();
 
 	//collision occurred
-	if(distance(close) < getW() / SimApp::getMetersPerPixel()){
+	if(close != this && distance(close) < getW() / SimApp::getMetersPerPixel()){
 		if(m_type == fire){
 			close->dead = true;
 			if(close->m_type == fire)
@@ -105,18 +105,16 @@ double Splendido::distance(Splendido* s){
 void Splendido::accelerate(){
 	double mag = magnitude();
 
-	double one_meter(1 * SimApp::getMetersPerPixel());
-
 	printf("%f\n",mag);
 
-	setVX(((mag + one_meter) * cos(m_angle)) * SimApp::getMetersPerPixel());
-	setVY(((mag + one_meter) * sin(m_angle)) * SimApp::getMetersPerPixel());
+	setVX((mag + 1) * cos(m_angle));
+	setVY((mag + 1) * sin(m_angle));
 
 	printf("%f\n",magnitude());
 }
 
 double Splendido::magnitude(){
-	int vx = getVX() / SimApp::getMetersPerPixel();
-	int vy = getVY() / SimApp::getMetersPerPixel();
+	int vx = getVX();
+	int vy = getVY();
 	return sqrt((pow(vx,2))+(pow(vy,2)));
 }
