@@ -53,8 +53,10 @@ void Splendido::draw(int win_height, int win_width,
 
 void Splendido::tick(long t)
 {
+	//check for collision
 	collide();
 
+	//10% chance to increase velovity by 1m/s
 	if(rand()%10 == 0)
 		accelerate();
 
@@ -68,7 +70,7 @@ void Splendido::tick(long t)
 void Splendido::collide(){
 	Splendido* close = closest();
 
-	//collision occurred
+	//if collision occurred
 	if(close != this && distance(close) < getW() / SimApp::getMetersPerPixel()){
 		if(m_type == fire){
 			close->dead = true;
@@ -114,7 +116,7 @@ void Splendido::accelerate(){
 }
 
 double Splendido::magnitude(){
-	int vx = getVX();
-	int vy = getVY();
+	double vx = getVX();
+	double vy = getVY();
 	return sqrt((pow(vx,2))+(pow(vy,2)));
 }
