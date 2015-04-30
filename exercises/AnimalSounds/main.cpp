@@ -1,4 +1,5 @@
 #include "AnimalBase.h"
+#include "Animals.h"
 
 void talk(AnimalBase * animal)
 {

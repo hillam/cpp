@@ -16,13 +16,13 @@ class Splendido : public ParticleBase
 public:
 	Splendido(vector<ParticleBase*>& p, double x, double y, double w, double h, 
 			double vX, double vY)
-			: ParticleBase(x, y, w, h), m_vX(vX), m_vY(vY), m_angle(atan(m_vY/m_vX)),
+			: ParticleBase(x, y, w, h), m_vX(vX), m_vY(vY), m_angle(atan2(m_vY,m_vX)),
 			m_particles((vector<Splendido*>&) p), dead(false) {
 
-		printf("m_vX: %f\n",m_vX);
+		/*printf("m_vX: %f\n",m_vX);
 		printf("m_vY: %f\n",m_vY);
 		printf("mag: %f\n",magnitude());
-		printf("m_angle: %f\n",m_angle);
+		printf("m_angle: %f\n",m_angle);*/
 
 		//coin toss to decide type
 		if(rand() % 2 == 0)

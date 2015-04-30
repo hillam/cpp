@@ -11,7 +11,7 @@ using namespace std;
 long t = 0;
 SimApp * win = NULL;
 
-const int TOTAL_PARTICLES = 1;
+const int TOTAL_PARTICLES = 100;
 
 int handleTime(void *)
 {
@@ -39,7 +39,7 @@ SimApp::SimApp(int argc, char *argv[], string title, int w, int h)
 
 	// units for x,y,w,h are in meters...
 	for(int i(0);i<TOTAL_PARTICLES;i++)
-		m_playground.add(new Splendido(m_playground.getParticles(),rand()%500, rand()%600, 10, 10, 
+		m_playground.add(new Splendido(m_playground.getParticles(),rand()%500, rand()%600, 30, 30, 
 			rand()%41 - 20, rand()%41 - 20));
 
    	m_playground.show();

@@ -35,18 +35,27 @@ void Splendido::draw(int win_height, int win_width,
 
 	cr->save();
 
-	cr->set_line_width(1.0);
+	/*Glib::RefPtr<Gdk::Pixbuf> image = Gdk::Pixbuf::create_from_file("myimage.png"); 
+	Gdk::Cairo::set_source_pixbuf(cr, image, x, y); 
+	cr-‐‐>rectangle(110, 90, image-‐‐>get_width(), image-‐‐>get_height()); 
+	cr-‐‐>fill(); */
 
-	// CHANGE COLOR/IMAGE //
+	//cr->set_line_width(1.0);
+	Glib::RefPtr<Gdk::Pixbuf> image1 = Gdk::Pixbuf::create_from_file("flame.png");
+	Glib::RefPtr<Gdk::Pixbuf> image2 = Gdk::Pixbuf::create_from_file("snowflake.png");
+
+	// CHANGE IMAGE //
 	if(m_type == fire)
-		cr->set_source_rgba(0.8, 0.0, 0.0, 0.6);
+		Gdk::Cairo::set_source_pixbuf(cr,image1,xpix,ypix);
 	else
-		cr->set_source_rgba(0.0, 0.0, 0.8, 0.6);
+		Gdk::Cairo::set_source_pixbuf(cr,image2,xpix,ypix);
 
-	cr->arc(xpix, ypix, wpix / 2.0, 0.0, 2.0 * M_PI);
+	//cr->arc(xpix, ypix, wpix / 2.0, 0.0, 2.0 * M_PI);
+	//cr->fill_preserve();
+	//cr->stroke();
 
-	cr->fill_preserve();
-	cr->stroke();
+	cr->rectangle(xpix,ypix,image1->get_width(),image1->get_height());
+	cr->fill();
 
 	cr->restore();
 }
@@ -107,12 +116,12 @@ double Splendido::distance(Splendido* s){
 void Splendido::accelerate(){
 	double mag = magnitude();
 
-	printf("%f\n",mag);
+	//printf("%f\n",mag);
 
 	setVX((mag + 1) * cos(m_angle));
 	setVY((mag + 1) * sin(m_angle));
 
-	printf("%f\n",magnitude());
+	//printf("%f\n",magnitude());
 }
 
 double Splendido::magnitude(){
