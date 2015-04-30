@@ -33,28 +33,20 @@ void Splendido::draw(int win_height, int win_width,
 	double wpix = getW() / SimApp::getMetersPerPixel();
 	double hpix = getH() / SimApp::getMetersPerPixel();
 
-	cr->save();
-
-	/*Glib::RefPtr<Gdk::Pixbuf> image = Gdk::Pixbuf::create_from_file("myimage.png"); 
-	Gdk::Cairo::set_source_pixbuf(cr, image, x, y); 
-	cr-‐‐>rectangle(110, 90, image-‐‐>get_width(), image-‐‐>get_height()); 
-	cr-‐‐>fill(); */
-
-	//cr->set_line_width(1.0);
-	Glib::RefPtr<Gdk::Pixbuf> image1 = Gdk::Pixbuf::create_from_file("flame.png");
-	Glib::RefPtr<Gdk::Pixbuf> image2 = Gdk::Pixbuf::create_from_file("snowflake.png");
+	cr->save();	
 
 	// CHANGE IMAGE //
-	if(m_type == fire)
+	if(m_type == fire){
+		Glib::RefPtr<Gdk::Pixbuf> image1 = Gdk::Pixbuf::create_from_file("flame.png");
 		Gdk::Cairo::set_source_pixbuf(cr,image1,xpix,ypix);
-	else
+		cr->rectangle(xpix,ypix,image1->get_width(),image1->get_height());
+	}
+	else{
+		Glib::RefPtr<Gdk::Pixbuf> image2 = Gdk::Pixbuf::create_from_file("snowflake.png");
 		Gdk::Cairo::set_source_pixbuf(cr,image2,xpix,ypix);
+		cr->rectangle(xpix,ypix,image2->get_width(),image2->get_height());
+	}
 
-	//cr->arc(xpix, ypix, wpix / 2.0, 0.0, 2.0 * M_PI);
-	//cr->fill_preserve();
-	//cr->stroke();
-
-	cr->rectangle(xpix,ypix,image1->get_width(),image1->get_height());
 	cr->fill();
 
 	cr->restore();
